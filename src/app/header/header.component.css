@@ -1,0 +1,12 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .active-link {
+    color: red; /* 当路由匹配时改变颜色 */
+    font-weight: bold; /* 高亮显示 */
+  }
+  
+a{
+  text-decoration: none;
+
+}

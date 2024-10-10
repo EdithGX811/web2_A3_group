@@ -1,0 +1,21 @@
+/* 根据需要添加你的样式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  td {
+    width: 33.33%;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  img {
+    height: 30px;
+    width: 30px;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+  }
+  

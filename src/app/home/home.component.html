@@ -1,0 +1,70 @@
+<hr>
+    <table style="width: 100%;">
+      <tr>
+        <td colspan="3">
+          <h1>Welcome to Our Crowdfunding Platform</h1>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+        <td>
+          <p>Contact: example&#64;example.com</p>
+        </td>
+      </tr>
+    </table>
+  <hr>
+  <p>Inspiring Stories...
+    <br>
+    有一天，驴子和老虎发生了争论。
+    驴子说："草是蓝色的。"
+    老虎回答："不对，草是绿色的。"
+    他们各执己见，互不相让，争论越来越激烈。
+    最后，两人决定将这个问题提交给狮子法官。
+    他们来到狮子面前，驴子大叫大嚷："法官大人，草难道不是蓝色的吗？"
+    狮子回答："如果你真的这么认为，草就是蓝色的。"
+    驴子不依不饶："老虎不同意这一点，还出言不逊，请惩罚他。"
+    狮子随后宣布："老虎将受到三天面壁思过的惩罚。"
+    驴子非常高兴，心满意足地离开了，嘴里不停地念叨着："草是蓝的，草是蓝的......"
+    老虎十分气愤："法官大人，草难道不是绿色的吗？"
+    狮子回答："草确实是绿色的。"
+    老虎困惑不解："那你为什么要惩罚我呢？"
+    狮子回答："惩罚你与草是蓝的还是绿的这个问题无关，而是因为像你这样的高级生物，竟然浪费时间和驴子争论这样简单的问题。最重要的是，你还用这个问题来烦我，只是为了验证你已经知道是真的事情。"
+    这个寓言就结束了，讲的其实是，应该如何处理争论。
+    它的观点很简单，就是不要争论。一来，有些人根本无法说服，他们不关心真相或现实，只关心自己的信念和观点获得胜利。
+    他们会竭尽全力，捍卫自己是正确的，与这样的人争论，就是浪费时间。
+    二来，一旦开始争论，难免情绪压倒理智。当你胜负心高涨，一心想赢过对方，你的智力就会急剧下降。
+  </p>
+  <hr>
+  <div style="text-align: right;">
+    <a href="search.html">GO Search Fundraisers Page --></a>
+  </div>
+  <div style="width: 100%;" >
+    <div style="width: 100%;">
+      <table border id="active-fundraisers" style="width: 100%;">
+        <tr *ngFor="let row of splitIntoRows(fundraisers, 3)">
+          <td *ngFor="let fundraiser of row" style="width: 33.33%;">
+            <div>
+              <img src="./assets/images/树.jpg" style="height: 30px; width: 30px;">
+              <span>{{ fundraiser.ORGANIZER }}</span>
+            </div>
+            <h2>{{ fundraiser.CAPTION }}</h2>
+            <div>
+              <p>Organizer: {{ fundraiser.ORGANIZER }}</p>
+              <p>Target Fund: {{ fundraiser.TARGET_fund }}</p>
+              <p>Current Fund: {{ fundraiser.CURRENT_fund }}</p>
+              <p>City: {{ fundraiser.CITY }}</p>
+              <p>Event: {{ fundraiser.EVENT }}</p>
+              <p>Status: {{ fundraiser.IS_ACTIVE ? 'Active' : 'Suspended' }}</p>
+              <p>Category: {{ fundraiser.CATEGORY_ID }}</p>
+            </div>
+            <div style="text-align: right;">
+              <a [routerLink]="['/details', fundraiser.FUNDRAISE_ID]">View Details</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+  </div>
+  <script src="js/index.js"></script>
