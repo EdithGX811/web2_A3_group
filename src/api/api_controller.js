@@ -121,9 +121,15 @@ router.post('/fundraisers/:id/donations', (req, res) => {
   // 执行插入操作
   db.query(sql, [amount, giver, id], (err, result) => {
     if (err) {
+<<<<<<< HEAD
       res.status(500).send('Server error');
     } else {
       res.status(201).send('Donation added successfully');
+=======
+      res.status(500).send({'message':'Server error'});
+    } else {
+      res.status(201).send({'message':'Donation added successfully'});
+>>>>>>> master
     }
   });
 });

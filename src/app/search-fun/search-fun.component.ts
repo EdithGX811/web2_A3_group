@@ -3,12 +3,25 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+<<<<<<< HEAD
 import { FormsModule } from '@angular/forms';  // 添加这一行
+=======
+import { FormsModule } from '@angular/forms';  
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+>>>>>>> master
 
 @Component({
   selector: 'app-search-fun',
   standalone: true,
+<<<<<<< HEAD
   imports: [CommonModule,RouterModule,HttpClientModule,FormsModule],
+=======
+  imports: [CommonModule,RouterModule,HttpClientModule,FormsModule,MatCheckboxModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule],
+>>>>>>> master
   templateUrl: './search-fun.component.html',
   styleUrls: ['./search-fun.component.css']
 })
@@ -20,7 +33,13 @@ export class SearchFunComponent {
     organizer: '',
     categoryId: ''
   };
+<<<<<<< HEAD
 
+=======
+  City:boolean=false
+  Organizer:boolean=false
+  Category:boolean = false
+>>>>>>> master
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -75,6 +94,12 @@ export class SearchFunComponent {
   }
 
   clearSearchFields() {
+<<<<<<< HEAD
+=======
+    this.City = false
+    this.Category = false
+    this.Organizer = false
+>>>>>>> master
     this.searchParams = {
       city: '',
       organizer: '',
