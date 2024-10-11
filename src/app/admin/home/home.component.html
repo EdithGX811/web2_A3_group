@@ -1,0 +1,56 @@
+<div>
+      <form (ngSubmit)="onSearch()" #searchForm="ngForm" >
+        <mat-form-field >
+          <mat-label>City</mat-label>
+          <input  matInput type="text" [(ngModel)]="searchParams.city" name="city" id="city" placeholder="Enter City">
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field >
+          <mat-label>Organizer</mat-label>
+          <input matInput type="text" [(ngModel)]="searchParams.organizer" name="organizer" id="organizer" placeholder="Enter Organizer">
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field >
+          <mat-label>Category:</mat-label>
+          <mat-select [(ngModel)]="searchParams.categoryId" name="categoryId" id="category-select">
+            <mat-option value="">----</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.CATEGORY_ID">
+              {{ category.CATEGORY_ID }}: {{ category.NAME }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+          <button  mat-flat-button color="primary" type="submit" >Search</button>
+          &nbsp;
+          <button  mat-flat-button color="primary" type="button" (click)="clearSearchFields()">Clear</button>
+      </form>
+      <hr>  
+      <table id="search-results" style="width: 100%" border="1">
+        <tr>
+          <th>Organizer</th>
+          <th>Caption</th>
+          <th>Target Fund</th>
+          <th>Current Fund</th>
+          <th>City</th>
+          <th>Event</th>
+          <th>CateGory ID</th>
+          <th>Is Active</th>
+          <th>Operate</th>
+        </tr>
+        <tr *ngFor="let fundraiser of fundraisers; let i = index">
+          <td>{{ fundraiser.ORGANIZER }}</td>
+          <td>{{fundraiser.CAPTION}}</td>
+          <td>{{fundraiser.TARGET_fund}}</td>
+          <td>{{fundraiser.CURRENT_fund}}</td>
+          <td>{{fundraiser.CITY}}</td>
+          <td>{{fundraiser.EVENT}}</td>
+          <td>{{fundraiser.CATEGORY_ID}}</td>
+          <td>{{fundraiser.IS_ACTIVE==1?'YES':'NO'}}</td>
+          <td>
+            <button mat-button color="primary" [routerLink]="['/admin/edit', fundraiser.FUNDRAISE_ID]">edit</button>
+            <button mat-button color="warn">delete</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    

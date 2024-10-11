@@ -121,15 +121,9 @@ router.post('/fundraisers/:id/donations', (req, res) => {
   // 执行插入操作
   db.query(sql, [amount, giver, id], (err, result) => {
     if (err) {
-<<<<<<< HEAD
-      res.status(500).send('Server error');
-    } else {
-      res.status(201).send('Donation added successfully');
-=======
       res.status(500).send({'message':'Server error'});
     } else {
       res.status(201).send({'message':'Donation added successfully'});
->>>>>>> master
     }
   });
 });
@@ -165,9 +159,9 @@ router.post('/fundraisers', (req, res) => {
     [organizer, caption, target_fund, currentFund, city, event, category_id, is_active || 1],
     (err, result) => {
       if (err) {
-        res.status(500).send('Server error');
+        res.status(500).send({'message':'Server error'});
       } else {
-        res.status(201).send('Fundraiser created successfully');
+        res.status(201).send({'message':'Fundraiser created successfully'});
       }
     }
   );

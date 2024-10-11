@@ -4,11 +4,16 @@ table {
   }
   
   td {
-    width: 33.33%;
+    width:auto;
     padding: 10px;
     border: 1px solid #ccc;
   }
   
+  td {
+    width:auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
   img {
     height: 30px;
     width: 30px;

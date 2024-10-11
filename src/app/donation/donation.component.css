@@ -3,11 +3,7 @@
     justify-content: center;
 }
 .example-card {
-<<<<<<< HEAD
-    max-width: 400px;
-=======
     max-width: 800px;
->>>>>>> master
   }
   
   .example-header-image {

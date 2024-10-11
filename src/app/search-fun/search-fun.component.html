@@ -1,31 +1,4 @@
 <div>
-<<<<<<< HEAD
-    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
-      <div>
-        <label for="city">City:</label>
-        <input type="text" [(ngModel)]="searchParams.city" name="city" id="city" placeholder="Enter City">
-      </div>
-  
-      <div>
-        <label for="organizer">Organizer:</label>
-        <input type="text" [(ngModel)]="searchParams.organizer" name="organizer" id="organizer" placeholder="Enter Organizer">
-      </div>
-  
-      <div>
-        <label for="category-select">Category:</label>
-        <select [(ngModel)]="searchParams.categoryId" name="categoryId" id="category-select">
-          <option value="">----</option>
-          <option *ngFor="let category of categories" [value]="category.CATEGORY_ID">
-            {{ category.CATEGORY_ID }}: {{ category.NAME }}
-          </option>
-        </select>
-      </div>
-  
-      <button type="submit">Search</button>
-      <button type="button" (click)="clearSearchFields()">Clear</button>
-    </form>
-  
-=======
   <div >
     <label><mat-checkbox class="example-margin" id="city-checkbox"  [(ngModel)]="City" > City</mat-checkbox></label>
     <label ><mat-checkbox class="example-margin" id="organizer-checkbox"  [(ngModel)]="Organizer"> Organizer</mat-checkbox></label>
@@ -59,7 +32,6 @@
       </div>
     </form>
     <hr>  
->>>>>>> master
     <table id="search-results" style="width: 100%" border="1">
       <tr *ngFor="let fundraiser of fundraisers; let i = index">
         <td *ngFor="let fundraiserItem of fundraisers.slice(i * 3, (i + 1) * 3)">

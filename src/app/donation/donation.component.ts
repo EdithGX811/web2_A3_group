@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-=======
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -17,23 +10,15 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
->>>>>>> master
 
 @Component({
   selector: 'app-donation',
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule,MatCardModule,MatButtonModule,MatInputModule,MatFormFieldModule,FormsModule],
-=======
   imports: [CommonModule, MatCardModule, MatButtonModule, MatInputModule, MatFormFieldModule, FormsModule, HttpClientModule, MatSnackBarModule],
->>>>>>> master
   templateUrl: './donation.component.html',
   styleUrls: ['./donation.component.css']
 })
 export class DonationComponent {
-<<<<<<< HEAD
-
-=======
   amount: number = 5;
   giver: string = '';
   fundraiser_organizer: string = '';
@@ -77,5 +62,4 @@ export class DonationComponent {
     });
 
   }
->>>>>>> master
 }

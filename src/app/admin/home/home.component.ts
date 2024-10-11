@@ -9,15 +9,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-
 @Component({
-  selector: 'app-search-fun',
+  selector: 'app-home',
   standalone: true,
   imports: [CommonModule,RouterModule,HttpClientModule,FormsModule,MatCheckboxModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule],
-  templateUrl: './search-fun.component.html',
-  styleUrls: ['./search-fun.component.css']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class SearchFunComponent {
+export class HomeComponent {
   fundraisers: any[] = [];
   categories: any[] = [];
   searchParams: any = {
@@ -25,9 +24,6 @@ export class SearchFunComponent {
     organizer: '',
     categoryId: ''
   };
-  City:boolean=false
-  Organizer:boolean=false
-  Category:boolean = false
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -82,9 +78,6 @@ export class SearchFunComponent {
   }
 
   clearSearchFields() {
-    this.City = false
-    this.Category = false
-    this.Organizer = false
     this.searchParams = {
       city: '',
       organizer: '',
