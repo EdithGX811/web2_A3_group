@@ -1,0 +1,13 @@
+.card_css {
+    width: 50%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: antiquewhite;
+}
+
+.content_text {
+    background-color: whitesmoke;
+    min-height: 300px;
+    border-radius: 12px;
+    padding: 10px;
+}

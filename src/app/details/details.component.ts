@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // 确保导入 HttpClientModule
+import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  imports: [CommonModule,HttpClientModule,MatCardModule,MatButtonModule],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
@@ -16,7 +19,7 @@ export class DetailsComponent {
   errorMessage: string | null = null;
   donations:any;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute,private router:Router) {}
 
   ngOnInit(): void {
     const fundraiserId = this.route.snapshot.paramMap.get('id');
@@ -37,6 +40,7 @@ export class DetailsComponent {
   }
 
   onDonateClick(): void {
-    alert('This feature is under construction');
+    this.router.navigate(['/donation'],{queryParams:{'fundraiser_id':this.fundraiser.FUNDRAISE_ID,'fundraiser_organizer':this.fundraiser.ORGANIZER}})
+
   }
 }
