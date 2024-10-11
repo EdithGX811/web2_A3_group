@@ -1,85 +1,73 @@
-<p>details works!</p>
 <div *ngIf="errorMessage; else detailsTemplate">
     <p style="color: red;">{{ errorMessage }}</p>
   </div>
   <ng-template #detailsTemplate>
     <table *ngIf="fundraiser" style="width:100%;">
-      <tr>
-        <td colspan="3">
+      <tr >
+        <td colspan="3" style="padding-left: 20px;" >
           <h1>{{ fundraiser.CAPTION }}</h1>
         </td>
         <td></td>
       </tr>
       <tr>
         <td colspan="3"></td>
-        <td>
-          <img src="./assets/images/树.jpg" width="30" height="30" alt="">
+        <td style="padding-left: 20px;">
+          <img src="./assets/images/树.jpg" width="30" height="30" alt="" style="border-radius: 15px;">
           <span>{{ fundraiser.ORGANIZER }}</span>
         </td>
       </tr>
       <tr style="vertical-align: top; text-align: left;">
-        <td colspan="3">
-          <p>{{ fundraiser.EVENT }}</p>
-          <div>
-            <button (click)="onDonateClick()">Donate</button>
+        <td colspan="3" style="padding-left: 20px;"  >
+          <div class="content_text"  >
+            <p>{{ fundraiser.EVENT }}</p>
+
+          </div>
+          <div style="display: flex;justify-content: center;margin-top: 10px;">
+            <button mat-flat-button color="primary" (click)="onDonateClick()">Donate</button>
           </div>
         </td>
-        <td>
-          <table border>
-            <thead>
-              <tr>
-                <th>About:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Organizer: {{ fundraiser.ORGANIZER }}</td>
-              </tr>
-              <tr>
-                <td>Category: {{ fundraiser.CATEGORY_NAME }}</td>
-              </tr>
-              <tr>
-                <td>Target Fund: {{ fundraiser.TARGET_fund }}</td>
-              </tr>
-              <tr>
-                <td>Current Fund: {{ fundraiser.CURRENT_fund }}</td>
-              </tr>
-              <tr>
-                <td>City: {{ fundraiser.CITY }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3"></td>
-        <td>
-          <table border>
-            <thead>
-              <tr>
-                <th colspan="3">donations:</th>
-              </tr>
-            </thead>
-            <tbody *ngIf="donations.length>0;else empty_donations">
-              <tr>
-                <th>giver</th>
-                <th>amount</th>
-                <th>date</th>
-              </tr>
-              <tr *ngFor="let donation of donations" >
-                <td>{{ donation.GIVER }}</td>
-                <td>{{donation.AMOUNT}}</td>
-                <td>{{donation.DATE|date:"yyyy-MM-dd hh:mm"}}</td>
-              </tr>
-            </tbody>
-            <ng-template #empty_donations>
-              <tbody>
-                <tr>
-                  <p>no one has donated yet!</p>
-                </tr>
-              </tbody>
-            </ng-template>
-          </table>
+        <td style="padding-left: 20px;">
+          <mat-card class="card_css">
+            <mat-card-header>
+              <mat-card-title>About:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Organizer: {{ fundraiser.ORGANIZER }}</p>
+                <p>Category: {{ fundraiser.CATEGORY_NAME }}</p>
+                <p>Target Fund: {{ fundraiser.TARGET_fund }}</p>
+                <p>Current Fund: {{ fundraiser.CURRENT_fund }}</p>
+                <p>City: {{ fundraiser.CITY }}</p>
+            </mat-card-content>
+          </mat-card>
+          <br>
+          <mat-card class="card_css">
+            <mat-card-header>
+              <mat-card-title>donations:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <table border style="width: 100%;">
+                <tbody *ngIf="donations.length>0;else empty_donations">
+                  <tr>
+                    <th>giver</th>
+                    <th>amount</th>
+                    <th>date</th>
+                  </tr>
+                  <tr *ngFor="let donation of donations" >
+                    <td>{{ donation.GIVER }}</td>
+                    <td>{{donation.AMOUNT}}</td>
+                    <td>{{donation.DATE|date:"yyyy-MM-dd hh:mm"}}</td>
+                  </tr>
+                </tbody>
+                <ng-template #empty_donations>
+                  <tbody>
+                    <tr>
+                      <p>no one has donated yet!</p>
+                    </tr>
+                  </tbody>
+                </ng-template>
+              </table>
+            </mat-card-content>
+          </mat-card>
         </td>
       </tr>
     </table>

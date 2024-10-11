@@ -37,30 +37,36 @@
   </p>
   <hr>
   <div style="text-align: right;">
-    <a  routerLink="/search" >GO Search Fundraisers Page --></a>
+    <button mat-button [routerLink]="['/search']" color="accent">GO Search Fundraisers Page --></button>
   </div>
   <div style="width: 100%;" >
     <div style="width: 100%;">
-      <table border id="active-fundraisers" style="width: 100%;">
+      <table border  id="active-fundraisers" style="width: 100%;border-radius: 12px;">
         <tr *ngFor="let row of splitIntoRows(fundraisers, 3)">
-          <td *ngFor="let fundraiser of row" style="width: 33.33%;">
-            <div>
-              <img src="./assets/images/树.jpg" style="height: 30px; width: 30px;">
-              <span>{{ fundraiser.ORGANIZER }}</span>
-            </div>
-            <h2>{{ fundraiser.CAPTION }}</h2>
-            <div>
-              <p>Organizer: {{ fundraiser.ORGANIZER }}</p>
-              <p>Target Fund: {{ fundraiser.TARGET_fund }}</p>
-              <p>Current Fund: {{ fundraiser.CURRENT_fund }}</p>
-              <p>City: {{ fundraiser.CITY }}</p>
-              <p>Event: {{ fundraiser.EVENT }}</p>
-              <p>Status: {{ fundraiser.IS_ACTIVE ? 'Active' : 'Suspended' }}</p>
-              <p>Category: {{ fundraiser.CATEGORY_ID }}</p>
-            </div>
-            <div style="text-align: right;">
-              <a [routerLink]="['/details', fundraiser.FUNDRAISE_ID]">View Details</a>
-            </div>
+          <td *ngFor="let fundraiser of row" style="width: 33.33%;border-radius: 12px;vertical-align: top;">
+            <mat-card class="card_css">
+              <mat-card-header>
+                <mat-card-title>{{ fundraiser.CAPTION }}</mat-card-title>
+                <mat-card-subtitle>
+                  <img src="./assets/images/树.jpg" style="height: 30px; width: 30px;border-radius: 15px;">
+                  <span>{{ fundraiser.ORGANIZER }}</span>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div>
+                  <p>Organizer: {{ fundraiser.ORGANIZER }}</p>
+                  <p>Target Fund: {{ fundraiser.TARGET_fund }}</p>
+                  <p>Current Fund: {{ fundraiser.CURRENT_fund }}</p>
+                  <p>City: {{ fundraiser.CITY }}</p>
+                  <p>Event: {{ fundraiser.EVENT }}</p>
+                  <p>Status: {{ fundraiser.IS_ACTIVE ? 'Active' : 'Suspended' }}</p>
+                  <p>Category: {{ fundraiser.CATEGORY_ID }}</p>
+                </div>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-button color="primary" [routerLink]="['/details', fundraiser.FUNDRAISE_ID]">View Details</button>
+              </mat-card-actions>
+            </mat-card>
           </td>
         </tr>
       </table>

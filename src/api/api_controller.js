@@ -1,16 +1,17 @@
-// 存放get请求
+// Store the get request
 const express = require('express');
 const router = express.Router();
 const db = require('./crowdfunding_db');
 
-// 允许跨域请求（CORS）
+// Allow cross-domain requests (CORS)
 router.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods',"*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-// 获取所有活跃的筹款者，包括他们的类别
+// Get all active fundraisers, including their category
 router.get('/fundraisers/active', (req, res) => {
   const sql = 'SELECT F.*, C.NAME AS CATEGORY_NAME FROM FUNDRAISER F INNER JOIN CATEGORY C ON F.CATEGORY_ID = C.CATEGORY_ID WHERE F.IS_ACTIVE = 1';
   db.query(sql, (err, result) => {
@@ -19,7 +20,7 @@ router.get('/fundraisers/active', (req, res) => {
   });
 });
 
-// 获取所有类别
+// Get all categories
 router.get('/categories', (req, res) => {
   const sql = 'SELECT * FROM CATEGORY';
   db.query(sql, (err, result) => {
@@ -29,7 +30,7 @@ router.get('/categories', (req, res) => {
   });
 });
 
-// 根据条件检索活跃的筹款者
+// Search for active fundraisers according to the criteria
 router.get('/fundraisers/search', (req, res) => {
   const { city, organizer, categoryId } = req.query;
   let sql = 'SELECT F.*, C.NAME AS CATEGORY_NAME FROM FUNDRAISER F INNER JOIN CATEGORY C ON F.CATEGORY_ID = C.CATEGORY_ID WHERE F.IS_ACTIVE = 1';
@@ -59,11 +60,11 @@ router.get('/fundraisers/search', (req, res) => {
 //     else res.status(404).send('Fundraiser not found');
 //   });
 // });
-//获取筹款活动的详细信息（按ID）包括筹款金额列表
+// Get fundraising details (by ID) including a list of fundraising amounts
 router.get('/fundraisers/:id', (req, res) => {
   const { id } = req.params;
   
-  // 查询筹款活动和相关的捐款列表
+// Check the list of fundraising events and related donations
   const sqlFundraiser = `
     SELECT F.*, C.NAME AS CATEGORY_NAME
     FROM FUNDRAISER F
@@ -77,19 +78,19 @@ router.get('/fundraisers/:id', (req, res) => {
     WHERE D.FUNDRAISER_ID = ?
   `;
 
-  // 先查询筹款活动详情
+  // Check the fundraising details first
   db.query(sqlFundraiser, [id], (err, fundraiserResult) => {
     if (err) {
       res.status(500).send('Server error');
     } else if (fundraiserResult.length > 0) {
       const fundraiser = fundraiserResult[0];
 
-      // 查询该筹款活动相关的捐款列表
+      // Check the list of donations related to the fundraising campaign
       db.query(sqlDonations, [id], (err, donationsResult) => {
         if (err) {
           res.status(500).send('Server error');
         } else {
-          // 返回筹款活动详情和捐款列表
+          // Return to fundraising details and donation list
           res.json({
             fundraiser,
             donations: donationsResult
@@ -101,24 +102,24 @@ router.get('/fundraisers/:id', (req, res) => {
     }
   });
 });
-//为指定的筹款人插入新的捐款记录
+// Insert a new donation record for the designated fundraiser
 router.post('/fundraisers/:id/donations', (req, res) => {
-  const { id } = req.params;  // 获取URL中的FUNDRAISER_ID
-  const { amount, giver } = req.body;  // 获取请求体中的捐款金额和捐款人信息
+  const { id } = req.params;  // Get the FUNDRAISER_ID from the URL
+  const { amount, giver } = req.body;  // Get the donation amount and donor information in the request box
   console.log(amount,giver)
 
-  // 验证请求体中的数据是否齐全
+  // Verify that the data in the request body is complete
   if (!amount || !giver) {
     return res.status(400).send('Amount and giver are required');
   }
 
-  // 插入新的捐款记录的SQL语句
+  // Insert a SQL statement for a new donation record
   const sql = `
     INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
     VALUES (NOW(), ?, ?, ?)
   `;
 
-  // 执行插入操作
+  // Perform insert operation
   db.query(sql, [amount, giver, id], (err, result) => {
     if (err) {
       res.status(500).send({'message':'Server error'});
@@ -128,7 +129,7 @@ router.post('/fundraisers/:id/donations', (req, res) => {
   });
 });
 
-//新的筹款人插入数据库
+//A new fundraiser is inserted into the database
 router.post('/fundraisers', (req, res) => {
   const {
     organizer,
@@ -141,18 +142,18 @@ router.post('/fundraisers', (req, res) => {
     is_active
   } = req.body;
 
-  // 验证请求体中的必填数据是否齐全
+  // Verify that the required data in the request body is complete
   if (!organizer || !target_fund) {
     return res.status(400).send('Organizer and target fund are required');
   }
 
-  // 插入新的筹款活动的SQL语句
+  // Insert the SQL statement for the new fundraising campaign
   const sql = `
     INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_fund, CURRENT_fund, CITY, EVENT, CATEGORY_ID, IS_ACTIVE)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
-  // 执行插入操作，CURRENT_fund 默认为 0，如果请求体未提供，则使用0
+  // When an insert is performed, CURRENT_fund defaults to 0, or 0 is used if not provided in the request body
   const currentFund = current_fund || 0;
   db.query(
     sql,
@@ -167,9 +168,9 @@ router.post('/fundraisers', (req, res) => {
   );
 });
 
-//根据指定id更新现有筹款人
+//Update existing fundraisers based on the specified id
 router.put('/fundraisers/:id', (req, res) => {
-  const { id } = req.params;  // 获取 URL 中的 FUNDRAISE_ID
+  const { id } = req.params;  // Gets the FUNDRAISE_ID in the URL
   const {
     organizer,
     caption,
@@ -181,49 +182,49 @@ router.put('/fundraisers/:id', (req, res) => {
     is_active
   } = req.body;
 
-  // 验证请求体中的数据
+  // Validate the data in the request body
   if (!organizer || !target_fund) {
-    return res.status(400).send('Organizer and target fund are required');
+    return res.status(400).send({'message':'Organizer and target fund are required'});
   }
 
-  // 更新筹款活动的 SQL 语句
+  // Update the SQL statement for the fundraising campaign
   const sql = `
     UPDATE FUNDRAISER
     SET ORGANIZER = ?, CAPTION = ?, TARGET_fund = ?, CURRENT_fund = ?, CITY = ?, EVENT = ?, CATEGORY_ID = ?, IS_ACTIVE = ?
     WHERE FUNDRAISE_ID = ?
   `;
 
-  // 执行更新操作
+  // Update
   db.query(
     sql,
     [organizer, caption, target_fund, current_fund || 0, city, event, category_id, is_active || 1, id],
     (err, result) => {
       if (err) {
-        res.status(500).send('Server error');
+        res.status(500).send({'message':'Server error'});
       } else if (result.affectedRows === 0) {
-        res.status(404).send('Fundraiser not found');
+        res.status(404).send({'message':'Fundraiser not found'});
       } else {
-        res.send('Fundraiser updated successfully');
+        res.send({'message':'Fundraiser updated successfully'});
       }
     }
   );
 });
 
-//根据指定id删除现有筹款人
+//Deletes an existing fundraiser based on the specified id
 router.delete('/fundraisers/:id', (req, res) => {
-  const { id } = req.params;  // 获取URL中的FUNDRAISE_ID
+  const { id } = req.params;  // Gets the FUNDRAISE_ID in the URL
 
-  // 删除筹款活动的SQL语句
+  // Delete the SQL statement for the fundraising campaign
   const sql = 'DELETE FROM FUNDRAISER WHERE FUNDRAISE_ID = ?';
 
-  // 执行删除操作
+  // Perform a delete operation
   db.query(sql, [id], (err, result) => {
     if (err) {
-      res.status(500).send('Server error');
+      res.status(500).send({'messsage':'Server error'});
     } else if (result.affectedRows === 0) {
-      res.status(404).send('Fundraiser not found');
+      res.status(404).send({'message':'Fundraiser not found'});
     } else {
-      res.send('Fundraiser deleted successfully');
+      res.send({'message':'Fundraiser deleted successfully'});
     }
   });
 });

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http'; // 确保导入 HttpClientModule
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,RouterModule],
+  imports: [CommonModule,HttpClientModule,RouterModule,MatButtonModule,MatCardModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

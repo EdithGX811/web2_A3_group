@@ -5,16 +5,16 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = 3000;
 
-// 引入api_controller模块
+// The api_controller module is introduced
 const apiRoutes = require('./api_controller');
 
-// 设置静态文件目录
+// Set static file directory
 app.use(express.static('client'));
 
-// 使用API路由
+// Using API routing
 app.use('/api', apiRoutes);
 
-// 启动服务器
+// Startup server
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -1,1 +1,57 @@
-<p>edit works!</p>
+<br>
+<div style="display: flex;justify-content: center;">
+  <h1 style="color: chocolate;">Edit fundraiser</h1>
+</div>
+<br>
+<form [formGroup]="fundraiserForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Organizer</mat-label>
+      <input matInput formControlName="organizer">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Caption</mat-label>
+      <textarea matInput formControlName="caption"></textarea>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Target Fund</mat-label>
+      <input matInput formControlName="target_fund" type="number">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Current Fund</mat-label>
+      <input matInput formControlName="current_fund" type="number">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Event</mat-label>
+      <textarea matInput formControlName="event"></textarea>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Category ID</mat-label>
+      <mat-select formControlName="category_id"  name="categoryId" id="category-select">
+        <mat-option value="">----</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category.CATEGORY_ID">
+          {{ category.CATEGORY_ID }}: {{ category.NAME }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Is Active</mat-label>
+      <mat-select formControlName="is_active">
+        <mat-option [value]="1">Yes</mat-option>
+        <mat-option [value]="0">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Save Fundraiser</button>
+  </form>
+  

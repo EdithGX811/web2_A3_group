@@ -1,11 +1,11 @@
-<mat-toolbar>
-    <table style="width: 100%;">
-      <tr>
-        <td><a routerLink="/admin/home">Crowdfunding Platform Admin</a></td>
-        <td><a routerLink="/admin/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a></td>
-        <td><a routerLink="/admin/add" routerLinkActive="active-link">Add Fundraisers</a></td>
-        <td><a routerLink="/admin/edit" routerLinkActive="active-link">Edit fundraisers</a></td>
-      </tr>
-    </table>
-  </mat-toolbar>
-  
+<mat-toolbar style="display: flex;justify-content: space-between;">
+  <div style="width: 50%;">
+    <a routerLink="/admin">Crowdfunding Platform Admin</a>
+  </div>
+  <div style="display: flex;justify-content: space-between;width: 50%;">
+    <a routerLink="/admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/admin/add" routerLinkActive="active-link">Add Fundraisers</a>
+    <a routerLink="/admin/edit" routerLinkActive="active-link">Edit fundraisers</a>
+  </div>
+
+</mat-toolbar>
