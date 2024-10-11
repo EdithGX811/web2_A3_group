@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';  
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -9,12 +9,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table'; 
-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,RouterModule,HttpClientModule,FormsModule,MatCheckboxModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule,MatTableModule],
+  imports: [CommonModule,RouterModule,HttpClientModule,FormsModule,MatCheckboxModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -26,9 +24,7 @@ export class HomeComponent {
     organizer: '',
     categoryId: ''
   };
-  displayedColumns: string[] = ['organizer', 'caption', 'target_fund', 'current_fund', 'city', 'event', 'category_id', 'is_active', 'operate'];
-
-  constructor(private http: HttpClient,private router:Router) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.fetchAndDisplayFundraisers('http://localhost:3000/api/fundraisers/active');
@@ -88,38 +84,5 @@ export class HomeComponent {
       categoryId: ''
     };
     this.fetchAndDisplayFundraisers('http://localhost:3000/api/fundraisers/active');
-  }
-   // 删除方法
-   deleteFundraiser(fundraiseId: number) {
-    const url = `http://localhost:3000/api/fundraisers/${fundraiseId}`;
-    if (confirm('Are you sure you want to delete this fundraiser?')) {
-      this.http.delete(url).subscribe(
-        response => {
-          console.log('Fundraiser deleted successfully', response);
-          // 从 fundraisers 数组中移除被删除的筹款
-          this.fundraisers = this.fundraisers.filter(fundraiser => fundraiser.FUNDRAISE_ID !== fundraiseId);
-          alert('Fundraiser deleted successfully')
-        },
-        error => {
-          console.error('Error deleting fundraiser', error);
-          alert('Error deleting fundraiser'+error.message)
-        }
-      );
-    }
-  }
-  editFundraiser(fundraiser:any){
-    this.router.navigate(['/admin/edit'], 
-    {
-      queryParams:{
-        'fundraise_id':fundraiser.FUNDRAISE_ID,
-        'organizer':fundraiser.ORGANIZER,
-        'caption':fundraiser.CAPTION,
-        'target_fund':fundraiser.TARGET_fund,
-        'current_fund':fundraiser.CURRENT_fund,
-        'city':fundraiser.CITY,
-        'event':fundraiser.EVENT,
-        'category_id':fundraiser.CATEGORY_ID,
-        'is_active':fundraiser.IS_ACTIVE}
-    })
   }
 }

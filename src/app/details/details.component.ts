@@ -4,13 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // 确保导入 HttpClientModule
 import { Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,MatCardModule,MatButtonModule],
+  imports: [CommonModule,HttpClientModule],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })

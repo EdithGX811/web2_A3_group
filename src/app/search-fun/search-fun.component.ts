@@ -9,11 +9,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-search-fun',
   standalone: true,
-  imports: [CommonModule,RouterModule,HttpClientModule,FormsModule,MatCheckboxModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule,MatCardModule],
+  imports: [CommonModule,RouterModule,HttpClientModule,FormsModule,MatCheckboxModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule],
   templateUrl: './search-fun.component.html',
   styleUrls: ['./search-fun.component.css']
 })

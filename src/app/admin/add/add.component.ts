@@ -46,7 +46,7 @@ export class AddComponent {
           response => {
             console.log('Fundraiser added successfully', response);
             alert("Fundraiser added successfully")
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin/home']);
             // 处理成功的操作，例如重定向到列表页
           },
           error => {

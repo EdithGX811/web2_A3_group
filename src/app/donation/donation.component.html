@@ -1,25 +1,23 @@
 <div class="just_center">
-    <div style="width: 40%;">
-        <mat-card class="example-card" class="just_center">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>您正在支持“dave"的筹款计划</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content >
-                <mat-form-field class="example-full-width">
-                    <mat-label>Amount</mat-label>
-                    <input matInput type="number" min="5" placeholder="请输入您的捐款,不低于5 AUD">
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Giver</mat-label>
-                    <input matInput placeholder="请输入捐款人姓名">
-                  </mat-form-field>
-            </mat-card-content>
-            <mat-card-actions class="just_center">
-                <button mat-flat-button color="primary">提交我的捐款</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-
-</div>
+      <mat-card class="example-card just_center">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>You are supporting "{{fundraiser_organizer}}'s" fundraising initiative</mat-card-title>
+          <mat-card-subtitle>Thank you for your donation</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" [(ngModel)]="amount" min="5" placeholder="Please enter your donation, not less than 5 AUD">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Giver</mat-label>
+            <input matInput [(ngModel)]="giver" placeholder="Please enter the name of the donor">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions class="just_center">
+          <button mat-flat-button color="primary" (click)="submitDonation()">Submit my donation</button>
+        </mat-card-actions>
+      </mat-card>
+  </div>
+  

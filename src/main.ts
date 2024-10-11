@@ -24,7 +24,7 @@ bootstrapApplication(AppComponent, {
       { path: 'donation', component: DonationComponent },
       { path: 'admin', component: AdminComponent ,data:{admin_header:true},
       children:[
-        {path:'',component:AdminHome},
+        {path:'home',component:AdminHome},
         {'path':'add',component:AddComponent},
         {'path':'add/:id',component:AddComponent},
         {'path':'edit',component:EditComponent},

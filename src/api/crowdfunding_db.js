@@ -2,10 +2,10 @@ const mysql = require('mysql');
 const dbConfig = require('./db_detail');
 
 const db = mysql.createConnection({
-  host: dbConfig.host,
-  user: dbConfig.user,
-  password: dbConfig.password,
-  database: dbConfig.database
+  host: 'localhost',       
+  user: 'root',            
+  password: '',            
+  database: 'crowdfunding_db'  
 });
 
 db.connect(err => {
