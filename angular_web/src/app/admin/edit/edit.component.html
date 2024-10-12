@@ -1,0 +1,85 @@
+<br>
+<div style="display: flex;justify-content: center;">
+  <h1 style="color: chocolate;">Edit fundraiser</h1>
+</div>
+<br>
+<form [formGroup]="fundraiserForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Organizer</mat-label>
+    <input matInput formControlName="organizer">
+    <mat-error *ngIf="fundraiserForm.get('organizer')?.hasError('noNumbers')">
+      {{ getErrorMessage('noNumbers') }} </mat-error>
+    <mat-error *ngIf="fundraiserForm.get('organizer')?.['invalid']">
+      {{ getErrorMessage('organizer') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Caption</mat-label>
+    <textarea matInput formControlName="caption"></textarea>
+    <mat-error *ngIf="fundraiserForm.get('caption')?.['invalid']">
+      {{ getErrorMessage('caption') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Target Fund</mat-label>
+    <input matInput formControlName="target_fund" type="number">
+    <mat-error *ngIf="fundraiserForm.get('target_fund')?.['invalid']">
+      {{ getErrorMessage('target_fund') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Current Fund</mat-label>
+    <input matInput formControlName="current_fund" type="number">
+    <mat-error *ngIf="fundraiserForm.get('current_fund')?.['invalid']">
+      {{ getErrorMessage('current_fund') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>City</mat-label>
+    <input matInput formControlName="city">
+    <mat-error *ngIf="fundraiserForm.get('city')?.hasError('noNumbers')">
+      {{ getErrorMessage('noNumbers') }} </mat-error>
+    <mat-error *ngIf="fundraiserForm.get('city')?.['invalid']">
+      {{ getErrorMessage('city') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Event</mat-label>
+    <textarea matInput formControlName="event"></textarea>
+    <mat-error *ngIf="fundraiserForm.get('event')?.['invalid']">
+      {{ getErrorMessage('event') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Category ID</mat-label>
+    <mat-select formControlName="category_id">
+      <mat-option value="">----</mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category.CATEGORY_ID">
+        {{ category.CATEGORY_ID }}: {{ category.NAME }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="fundraiserForm.get('category_id')?.['invalid']">
+      {{ getErrorMessage('category_id') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Is Active</mat-label>
+    <mat-select formControlName="is_active">
+      <mat-option [value]="1">Yes</mat-option>
+      <mat-option [value]="0">No</mat-option>
+    </mat-select>
+    <mat-error *ngIf="fundraiserForm.get('is_active')?.['invalid']">
+      {{ getErrorMessage('is_active') }}
+    </mat-error>
+  </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Save Fundraiser</button>
+  </form>
+  
