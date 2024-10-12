@@ -11,16 +11,18 @@ import { AdminComponent } from './app/admin/admin.component';
 import { HomeComponent  as AdminHome } from './app/admin/home/home.component';
 import { AddComponent } from './app/admin/add/add.component';
 import { EditComponent } from './app/admin/edit/edit.component';
+import { DataService } from './app/data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(BrowserAnimationsModule,HttpClientModule),
     provideRouter([
       { path: '', component: HomeComponent },
       { path: 'search', component: SearchFunComponent, },
-      { path: 'details', component: DetailsComponent },
-      { path: 'details/:id', component: DetailsComponent },
+      { path: 'fundraiser', component: DetailsComponent },
+      { path: 'fundraiser/:id', component: DetailsComponent },
       { path: 'donation', component: DonationComponent },
       { path: 'admin', component: AdminComponent ,data:{admin_header:true},
       children:[
@@ -31,5 +33,6 @@ bootstrapApplication(AppComponent, {
         {'path':'edit/:id',component:EditComponent}
       ]}
     ]),
+    DataService
   ],
 });

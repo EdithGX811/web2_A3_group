@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from '../home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +13,8 @@ import { HomeComponent } from '../home/home.component';
     MatToolbarModule,
     HeaderComponent,
     HomeComponent,
-    CommonModule],  templateUrl: './admin.component.html',
+    CommonModule,
+    HttpClientModule],  templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {

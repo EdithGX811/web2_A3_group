@@ -3,6 +3,7 @@
     <label><mat-checkbox class="example-margin" id="city-checkbox"  [(ngModel)]="City" > City</mat-checkbox></label>
     <label ><mat-checkbox class="example-margin" id="organizer-checkbox"  [(ngModel)]="Organizer"> Organizer</mat-checkbox></label>
     <label ><mat-checkbox class="example-margin" id="category-checkbox" [(ngModel)]="Category"> Category</mat-checkbox></label>
+    <label ><mat-checkbox class="example-margin" id="active-checkbox"  [(ngModel)]="Active"> Active</mat-checkbox></label>
   </div>
     <form (ngSubmit)="onSearch()" #searchForm="ngForm" >
       <mat-form-field *ngIf="City">
@@ -25,9 +26,17 @@
         </mat-select>
       </mat-form-field>
       &nbsp;
-        <button  mat-flat-button color="primary" type="submit" *ngIf="City||Category||Organizer">Search</button>
+      <mat-form-field *ngIf="Active">
+        <mat-label>Active:</mat-label>
+        <mat-select [(ngModel)]="searchParams.active" name="active" id="active-select">
+          <mat-option value="1">active</mat-option>
+          <mat-option value="0">suspended</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+        <button  mat-flat-button color="primary" type="submit" *ngIf="City||Category||Organizer||Active">Search</button>
         &nbsp;
-        <button  mat-flat-button color="primary" type="button" (click)="clearSearchFields()" *ngIf="City||Category||Organizer">Clear</button>
+        <button  mat-flat-button color="primary" type="button" (click)="clearSearchFields()" *ngIf="City||Category||Organizer||Active">Clear</button>
     </form>
     <hr>  
     <table id="search-results" style="width: 100%" border="1">
@@ -53,7 +62,7 @@
               </div>
             </mat-card-content>
             <mat-card-actions align="end">
-              <button mat-button color="primary" [routerLink]="['/details', fundraiser.FUNDRAISE_ID]">View Details</button>
+              <button mat-button color="primary" [routerLink]="['/fundraiser', fundraiser.FUNDRAISE_ID]">View Details</button>
             </mat-card-actions>
           </mat-card>
         </td>

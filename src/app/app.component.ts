@@ -4,6 +4,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from "./home/home.component";
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+
 @Component({
   selector: 'app-root',
   standalone:true,
@@ -11,7 +13,8 @@ import { CommonModule } from '@angular/common';
     MatToolbarModule,
     HeaderComponent,
     HomeComponent,
-    CommonModule],
+    CommonModule,
+    HttpClientModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

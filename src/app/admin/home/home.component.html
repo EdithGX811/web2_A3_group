@@ -21,6 +21,14 @@
       </mat-select>
     </mat-form-field>
     &nbsp;
+    <mat-form-field>
+      <mat-label>Active:</mat-label>
+      <mat-select [(ngModel)]="searchParams.active" name="active" id="active-select">
+        <mat-option value="1">active</mat-option>
+        <mat-option value="0">suspended</mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;
     <button mat-flat-button color="primary" type="submit">Search</button>
     &nbsp;
     <button mat-flat-button color="primary" type="button" (click)="clearSearchFields()">Clear</button>

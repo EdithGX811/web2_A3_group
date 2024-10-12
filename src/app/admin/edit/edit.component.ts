@@ -2,24 +2,26 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from 'src/app/data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,MatButtonModule,MatInputModule,MatFormFieldModule,MatSelectModule,HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule,HttpClientModule],
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent {
   fundraiserForm: FormGroup;
   categories: any[] = [];
-  constructor(private fb: FormBuilder, private http: HttpClient,private router:Router,private route:ActivatedRoute) {
+
+  constructor(private fb: FormBuilder, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     this.populateDropdown();
     this.fundraiserForm = this.fb.group({
       fundraise_id: [''],
@@ -48,45 +50,44 @@ export class EditComponent {
         is_active: Number(params['is_active'])
       });
     });
-    
-    
-   
   }
 
   onSubmit() {
     if (this.fundraiserForm.valid) {
-      // 获取表单数据
       const fundraiserData = this.fundraiserForm.value;
       console.log(fundraiserData);
-      if (!fundraiserData.fundraise_id){
-        alert("Please select the fundraising information you want to update!!!")
-        return 
+
+      if (!fundraiserData.fundraise_id) {
+        alert("Please select the fundraising information you want to update!!!");
+        return;
       }
+
       // 发送PUT请求更新现有的募捐活动
-      this.http.put(`http://localhost:3000/api/fundraisers/${fundraiserData.fundraise_id}`, fundraiserData)
+      this.dataService.updateFundraiser(fundraiserData.fundraise_id, fundraiserData)
         .subscribe(
           response => {
             console.log('Fundraiser updated successfully', response);
             alert("Fundraiser updated successfully");
-            // 编辑成功后重定向到列表页
             this.router.navigate(['/admin']);
           },
           error => {
             console.error('Error updating fundraiser', error);
             alert('Error updating fundraiser: ' + error);
-            // 处理错误
           }
         );
     } else {
       console.log('Form is invalid');
     }
   }
-  
+
   populateDropdown(): void {
-    this.http.get<any[]>('http://localhost:3000/api/categories').subscribe((data) => {
-      this.categories = data;
-    }, error => {
-      console.error('Error fetching categories:', error);
-    });
+    this.dataService.getCategories().subscribe(
+      data => {
+        this.categories = data;
+      },
+      error => {
+        console.error('Error fetching categories:', error);
+      }
+    );
   }
 }

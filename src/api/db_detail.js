@@ -1,12 +1,12 @@
-// Details about the database configuration
+//数据库配置详情
 module.exports = {
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'crowdfunding_db'
   };
   
-  // Details about the Cpanel database configuration
+  //cpanel数据库配置详情
 // module.exports = {
 //   host: 'localhost',
 //   user: 'xxie12_root',
