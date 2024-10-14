@@ -27,7 +27,7 @@ export class DetailsComponent {
       return;
     }
 
-    // 调用DataService中的getFundraiserDetails方法
+    // Call the getFundraiserDetails method in DataService
     this.dataService.getFundraiserDetails(fundraiserId).subscribe({
       next: (data: any) => {
         this.fundraiser = data.fundraiser;

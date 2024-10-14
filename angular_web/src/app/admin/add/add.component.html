@@ -1,84 +1,116 @@
-<br>
+<!-- Container for the title, centered horizontally -->
 <div style="display: flex;justify-content: center;">
+  <!-- Title of the form -->
   <h1 style="color: chocolate;">Add Fundraiser</h1>
 </div>
-<br>
+
+<!-- Form for adding a new fundraiser, using Angular reactive forms -->
 <form [formGroup]="fundraiserForm" (ngSubmit)="onSubmit()">
+  <!-- Form field for the organizer's name -->
   <mat-form-field>
     <mat-label>Organizer</mat-label>
+    <!-- Input tied to the 'organizer' form control -->
     <input matInput formControlName="organizer">
+    <!-- Error message for 'no numbers' validation error -->
     <mat-error *ngIf="fundraiserForm.get('organizer')?.hasError('noNumbers')">
-      {{ getErrorMessage('noNumbers') }} </mat-error>
+      {{ getErrorMessage('noNumbers') }}
+    </mat-error>
+    <!-- Error message for generic validation errors on 'organizer' -->
     <mat-error *ngIf="fundraiserForm.get('organizer')?.['invalid']">
       {{ getErrorMessage('organizer') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for the fundraising caption -->
   <mat-form-field>
     <mat-label>Caption</mat-label>
+    <!-- Textarea tied to the 'caption' form control -->
     <textarea matInput formControlName="caption"></textarea>
+    <!-- Error message for validation errors on 'caption' -->
     <mat-error *ngIf="fundraiserForm.get('caption')?.['invalid']">
       {{ getErrorMessage('caption') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for the target fund amount -->
   <mat-form-field>
     <mat-label>Target Fund</mat-label>
+    <!-- Numeric input tied to the 'target_fund' form control -->
     <input matInput formControlName="target_fund" type="number">
+    <!-- Error message for validation errors on 'target_fund' -->
     <mat-error *ngIf="fundraiserForm.get('target_fund')?.['invalid']">
       {{ getErrorMessage('target_fund') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for the current fund amount -->
   <mat-form-field>
     <mat-label>Current Fund</mat-label>
+    <!-- Numeric input tied to the 'current_fund' form control -->
     <input matInput formControlName="current_fund" type="number">
+    <!-- Error message for validation errors on 'current_fund' -->
     <mat-error *ngIf="fundraiserForm.get('current_fund')?.['invalid']">
       {{ getErrorMessage('current_fund') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for the city -->
   <mat-form-field>
     <mat-label>City</mat-label>
+    <!-- Input tied to the 'city' form control -->
     <input matInput formControlName="city">
+    <!-- Error message for 'no numbers' validation error on 'city' -->
     <mat-error *ngIf="fundraiserForm.get('city')?.hasError('noNumbers')">
-      {{ getErrorMessage('noNumbers') }} </mat-error>
+      {{ getErrorMessage('noNumbers') }}
+    </mat-error>
+    <!-- Error message for generic validation errors on 'city' -->
     <mat-error *ngIf="fundraiserForm.get('city')?.['invalid']">
       {{ getErrorMessage('city') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for the event details -->
   <mat-form-field>
     <mat-label>Event</mat-label>
+    <!-- Textarea tied to the 'event' form control -->
     <textarea matInput formControlName="event"></textarea>
+    <!-- Error message for validation errors on 'event' -->
     <mat-error *ngIf="fundraiserForm.get('event')?.['invalid']">
       {{ getErrorMessage('event') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for selecting the category ID -->
   <mat-form-field>
     <mat-label>Category ID</mat-label>
+    <!-- Dropdown select tied to the 'category_id' form control -->
     <mat-select formControlName="category_id">
       <mat-option value="">----</mat-option>
+      <!-- Dynamic options for categories -->
       <mat-option *ngFor="let category of categories" [value]="category.CATEGORY_ID">
         {{ category.CATEGORY_ID }}: {{ category.NAME }}
       </mat-option>
     </mat-select>
+    <!-- Error message for validation errors on 'category_id' -->
     <mat-error *ngIf="fundraiserForm.get('category_id')?.['invalid']">
       {{ getErrorMessage('category_id') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Form field for selecting if the fundraiser is active -->
   <mat-form-field>
     <mat-label>Is Active</mat-label>
+    <!-- Dropdown select tied to the 'is_active' form control -->
     <mat-select formControlName="is_active">
       <mat-option [value]="1">Yes</mat-option>
       <mat-option [value]="0">No</mat-option>
     </mat-select>
+    <!-- Error message for validation errors on 'is_active' -->
     <mat-error *ngIf="fundraiserForm.get('is_active')?.['invalid']">
       {{ getErrorMessage('is_active') }}
     </mat-error>
   </mat-form-field>
 
+  <!-- Submit button for the form -->
   <button mat-raised-button color="primary" type="submit">Add Fundraiser</button>
 </form>

@@ -4,9 +4,9 @@
 
 .active-link {
   color: red;
-  /* 当路由匹配时改变颜色 */
+  /* Changes color when routes match */
   font-weight: bold;
-  /* 高亮显示 */
+  /* highlight */
 }
 
 a {

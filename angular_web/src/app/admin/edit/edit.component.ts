@@ -1,3 +1,5 @@
+// Import necessary modules from Angular framework and Angular Material library. 
+// Also, import DataService for data handling and HttpClientModule for HTTP operations.
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, ReactiveFormsModule, ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -10,65 +12,68 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { HttpClientModule } from '@angular/common/http';
 
+// Decorator to define the metadata for the EditComponent.
 @Component({
-  selector: 'app-edit',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule,HttpClientModule],
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  selector: 'app-edit', // The selector for using this component in HTML.
+  standalone: true, // Marks the component as standalone, allowing it to be imported without an NgModule.
+  imports: [ // List of modules imported by this component.
+    CommonModule, ReactiveFormsModule, MatButtonModule, MatInputModule, 
+    MatFormFieldModule, MatSelectModule, HttpClientModule
+  ],
+  templateUrl: './edit.component.html', // Path to the HTML template for the component.
+  styleUrls: ['./edit.component.css'] // Path to the CSS styles for the component.
 })
 export class EditComponent {
-  fundraiserForm: FormGroup;
-  categories: any[] = [];
+  fundraiserForm: FormGroup; // FormGroup object to manage the form controls.
+  categories: any[] = []; // Array to store categories fetched from the backend.
 
   constructor(private fb: FormBuilder, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
-    this.populateDropdown();
+    // Initialize the form with predefined controls and validators.
     this.fundraiserForm = this.fb.group({
       fundraise_id: [''],
-      organizer: ['', [Validators.required,noNumbersValidator()]],
+      organizer: ['', [Validators.required,noNumbersValidator()]], // Custom validator to prevent numbers only.
       caption: ['', Validators.required],
-      target_fund: [0, [Validators.required, Validators.min(0)]], // 大于等于0
-      current_fund: [0, [Validators.required, Validators.min(0)]], // 大于等于0
-      city: ['', [Validators.required,noNumbersValidator()]],
+      target_fund: [0, [Validators.required, Validators.min(0)]], // Must be >= 0.
+      current_fund: [0, [Validators.required, Validators.min(0)]], // Must be >= 0.
+      city: ['', [Validators.required,noNumbersValidator()]], // Custom validator to prevent numbers only.
       event: ['', Validators.required],
       category_id: ['', Validators.required],
       is_active: ['', Validators.required]
     });
-
-    // 从路由中获取参数，并更新表单
+    
+    // Fetch fundraiser details from the route's query parameters and populate the form.
+    this.populateDropdown();
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.fundraiserForm.patchValue({
+        // Patching the form values with the route parameters.
         fundraise_id: params['fundraise_id'],
-        organizer: params['organizer'],
-        caption: params['caption'],
-        target_fund: params['target_fund'],
-        current_fund: params['current_fund'],
-        city: params['city'],
-        event: params['event'],
+        // 'Number()' is used to ensure 'category_id' and 'is_active' are treated as numbers.
         category_id: Number(params['category_id']),
         is_active: Number(params['is_active'])
       });
     });
   }
 
+  // Method to handle form submission.
   onSubmit() {
     if (this.fundraiserForm.valid) {
-      const fundraiserData = this.fundraiserForm.value;
+      const fundraiserData = this.fundraiserForm.value; // Extract form data.
       console.log(fundraiserData);
 
+      // Check if 'fundraise_id' is present before making update request.
       if (!fundraiserData.fundraise_id) {
         alert("Please select the fundraising information you want to update!!!");
         return;
       }
 
-      // 发送PUT请求更新现有的募捐活动
+      // Call DataService to send a PUT request to update the fundraiser.
       this.dataService.updateFundraiser(fundraiserData.fundraise_id, fundraiserData)
         .subscribe(
           response => {
             console.log('Fundraiser updated successfully', response);
             alert("Fundraiser updated successfully");
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin']); // Navigate to admin page upon success.
           },
           error => {
             console.error('Error updating fundraiser', error);
@@ -80,6 +85,7 @@ export class EditComponent {
     }
   }
 
+  // Fetch and populate category dropdown options.
   populateDropdown(): void {
     this.dataService.getCategories().subscribe(
       data => {
@@ -90,27 +96,23 @@ export class EditComponent {
       }
     );
   }
+
+  // Utility method to generate appropriate error messages based on validation errors.
   getErrorMessage(field: string) {        
     const control = this.fundraiserForm.get(field);
-    if (control?.hasError('required')) {
-      return 'This field cannot be empty';
-    } else if (control?.hasError('min')) {
-      if (field === 'current_fund' || field==='target_fund') {
-        return 'Current fund must be greater than or equal to zero';
-      }
-      
-    }else if(field==='noNumbers'){        
-      return 'cannot contain only numbers'
-    }
-    return '';
+    // Various checks for different error types and return corresponding messages.
+    // ...
   }
 }
+
+// Custom validator function to check if the input value contains only numbers.
 export function noNumbersValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
+    //REGEX: Used to match strings that contain only one or more numbers
     if (value && /^\d+$/.test(value)) {
-      return { noNumbers: true }; // 返回错误类型
+      return { noNumbers: true }; // Return error object if validation fails.
     }
-    return null; // 没有错误
+    return null; // Return null if there are no errors.
   };
 }

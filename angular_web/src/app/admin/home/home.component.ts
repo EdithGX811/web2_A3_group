@@ -106,7 +106,8 @@ export class HomeComponent {
         },
         error => {
           console.error('Error deleting fundraiser', error);
-          alert('Error deleting fundraiser: ' + error.message);
+          const errorMessage = error?.error?.messsage || error?.error?.message || 'Unknown error';
+          alert('Error deleting fundraiser: ' + errorMessage);
         }
       );
     }
